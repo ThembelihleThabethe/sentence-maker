@@ -1,6 +1,6 @@
-import { Component, OnInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as confetti from 'canvas-confetti';
-import { Sentence } from 'src/app/service/sentence';
+import { Response } from 'src/app/service/sentence';
 import { SentenceMakerService } from 'src/app/service/sentence.service';
 
 @Component({
@@ -10,17 +10,17 @@ import { SentenceMakerService } from 'src/app/service/sentence.service';
 })
 export class SentenceMakerDashboardComponent implements OnInit {
   public clicked = false
-  public nouns: Object | any
-  public verbs: Object | any
-  public adjectives: Object | any
-  public adverbs: Object | any
-  public pronouns: Object | any
-  public prepositions: Object| any
-  public conjunctions: Object | any
-  public determiners: Object | any
-  public exclamations: Object | any
+  public nouns: Response | any
+  public verbs: Response | any
+  public adjectives: Response | any
+  public adverbs: Response | any
+  public pronouns: Response | any
+  public prepositions: Response | any
+  public conjunctions: Response | any
+  public determiners: Response | any
+  public exclamations: Response | any
 
-  constructor(private dataService: SentenceMakerService, private renderer2: Renderer2, private elementRef: ElementRef) { }
+  constructor(private dataService: SentenceMakerService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.dataService.getNouns().subscribe(res => {
@@ -59,22 +59,34 @@ export class SentenceMakerDashboardComponent implements OnInit {
   }
 
   public submit(): void {
+    this.clicked = true;
+    
     const textAreaElement = document.getElementById('textArea') as HTMLInputElement
+    textAreaElement.value.toLocaleUpperCase()
+    if(textAreaElement.value){
+      this.dataService.postSentence(textAreaElement.value).subscribe(res => {
+        this.exclamations = res;
+      })
+    }
+    
+    this.changeDetector.detectChanges()
 
-    this.dataService.postSentence(textAreaElement.value).subscribe(res => {
-      console.log(res)
-    });
-
-
-    const canvas = this.renderer2.createElement('canvas')
-
-    this.renderer2.appendChild(this.elementRef.nativeElement, canvas)
-
+    const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
+    const canvas2 = document.getElementById('myCanvas2') as HTMLCanvasElement
+    var ctx = canvas2.getContext("2d")
+    if (ctx != null) {
+      ctx.strokeStyle = "#FFA500"
+      ctx.font = "50px Arial"
+      ctx.strokeText("Thank You", 10, 120)
+    }
     const myConfetti = confetti.create(canvas, {
       resize: true // will fit all screen sizes
     });
 
     myConfetti();
-    this.clicked = true;
+  }
+
+  public resubmit(){
+    this.clicked = false
   }
 }

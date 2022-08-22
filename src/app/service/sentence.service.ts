@@ -16,6 +16,9 @@ export class SentenceMakerService {
   REST_API: string = 'http://localhost:8000/api';
   // Http Header
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  // httpHeaders = httpHeaders.set("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
+  //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   constructor(private httpClient: HttpClient) { }
   
   postSentence(data: string): Observable<Sentence> {
