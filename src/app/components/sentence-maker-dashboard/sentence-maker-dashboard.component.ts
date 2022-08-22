@@ -10,6 +10,7 @@ import { SentenceMakerService } from 'src/app/service/sentence.service';
 })
 export class SentenceMakerDashboardComponent implements OnInit {
   public clicked = false
+  public sentenceList = false
   public nouns: Response | any
   public verbs: Response | any
   public adjectives: Response | any
@@ -19,6 +20,7 @@ export class SentenceMakerDashboardComponent implements OnInit {
   public conjunctions: Response | any
   public determiners: Response | any
   public exclamations: Response | any
+  public sentences : Response | any
 
   constructor(private dataService: SentenceMakerService, private changeDetector: ChangeDetectorRef) { }
 
@@ -85,7 +87,16 @@ export class SentenceMakerDashboardComponent implements OnInit {
     }
   }
 
+  public getsentenceList(){
+    this.sentenceList = true
+    this.clicked = false
+    this.dataService.getSentences().subscribe(res => {
+      this.sentences = res;
+    });
+  }
+
   public resubmit() {
     this.clicked = false
+    this.sentenceList = false
   }
 }

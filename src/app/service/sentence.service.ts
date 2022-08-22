@@ -26,6 +26,10 @@ export class SentenceMakerService {
       .pipe(catchError(this.handleError));
   }
 
+  getSentences() {
+    return this.httpClient.get(`${this.REST_API}/sentences`);
+  }
+
   getNouns() {
     return this.httpClient.get(`${this.REST_API}/nouns`);
   }

@@ -13,7 +13,7 @@
         </div>
     </header>
 
-    <main *ngIf="!clicked" class="container px-3" style="margin-top: 70px">
+    <main *ngIf="!clicked && !sentenceList" class="container px-3" style="margin-top: 70px">
         <h1>Have Fun and Build your Sentence</h1>
 
         <p class="lead">Click on the words below and build a sentence and save</p>
@@ -23,7 +23,8 @@
                     <h3>Nouns</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let noun of nouns?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(noun.textString)">{{ noun.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(noun.textString)">{{ noun.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -31,7 +32,8 @@
                     <h3>Verbs</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let verb of verbs?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(verb.textString)">{{ verb.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(verb.textString)">{{ verb.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -39,7 +41,8 @@
                     <h3>Adjectives</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let adjective of adjectives?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(adjective.textString)">{{ adjective.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(adjective.textString)">{{ adjective.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -49,7 +52,8 @@
                     <h3>Adverbs</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let adverb of adverbs?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(adverb.textString)">{{ adverb.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(adverb.textString)">{{ adverb.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -57,7 +61,8 @@
                     <h3>Pronouns</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let pronoun of pronouns?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(pronoun.textString)">{{ pronoun.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(pronoun.textString)">{{ pronoun.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -65,7 +70,8 @@
                     <h3>Prepositions</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let preposition of prepositions?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(preposition.textString)">{{ preposition.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(preposition.textString)">{{ preposition.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -75,7 +81,8 @@
                     <h3>Conjunctions</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let conjunction of conjunctions?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(conjunction.textString)">{{ conjunction.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(conjunction.textString)">{{ conjunction.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -83,7 +90,8 @@
                     <h3>Determiners</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let determiner of determiners?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(determiner.textString)">{{ determiner.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(determiner.textString)">{{ determiner.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -91,7 +99,8 @@
                     <h3>Exclamations</h3>
                     <div class="d-grid d-md-block">
                         <span *ngFor="let exclamation of exclamations?.data">
-                            <button class="btn btn-secondary w-50" type="button" (click)="concatStrings(exclamation.textString)">{{ exclamation.textString }}</button>
+                            <button class="btn btn-secondary w-50" type="button"
+                                (click)="concatStrings(exclamation.textString)">{{ exclamation.textString }}</button>
                         </span>
                     </div>
                 </div>
@@ -101,16 +110,36 @@
             <textarea name="textArea" id="textArea" cols="30" rows="10"></textarea>
         </div>
         <div class="container-fluid m-2">
-            <button type="button" class="btn btn-outline-light" style="margin-right: 10px;" (click)="submit()">SAVE</button>
+            <button type="button" class="btn btn-outline-light" style="margin-right: 10px;"
+                (click)="submit()">SAVE</button>
+            <button type="button" class="btn btn-outline-light" style="margin-right: 10px;"
+                (click)="getsentenceList()">VIEW SENTENCES</button>
         </div>
     </main>
 
     <main *ngIf="clicked">
         <div class="container-fluid"><canvas id="myCanvas"></canvas></div>
-        <div class="container-fluid" style="text-align:center;" ><canvas id="myCanvas2"></canvas></div>
+        <div class="container-fluid" style="text-align:center;"><canvas id="myCanvas2"></canvas></div>
         <div class="container-fluid m-2 footer">
-            <button type="button" class="btn btn-outline-light" style="margin-right: 10px;" (click)="resubmit()">CREATE AGAIN</button>
-            <button type="button" class="btn btn-outline-light" style="margin-right: 10px;" (click)="resubmit()">VIEW SENTENCES</button>
+            <button type="button" class="btn btn-outline-light" style="margin-right: 10px;" (click)="resubmit()">CREATE
+                AGAIN</button>
+            <button type="button" class="btn btn-outline-light" style="margin-right: 10px;"
+                (click)="getsentenceList()">VIEW SENTENCES</button>
+        </div>
+    </main>
+
+    <main *ngIf="sentenceList">
+        <div class="container-fluid" style="margin-top: 100px;">
+            <h2>Saved Sentences</h2>
+            <ol class="mt-3">
+                <span *ngFor="let sentence of sentences?.data">
+                    <li>{{ sentence.text }}</li>
+                </span> 
+            </ol>
+        </div>
+        <div class="container-fluid m-2 footer">
+            <button type="button" class="btn btn-outline-light" style="margin-right: 10px;" (click)="resubmit()">CREATE
+                MORE</button>
         </div>
     </main>
 </div>
