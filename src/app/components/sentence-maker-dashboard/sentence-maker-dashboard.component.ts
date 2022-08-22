@@ -60,33 +60,32 @@ export class SentenceMakerDashboardComponent implements OnInit {
 
   public submit(): void {
     this.clicked = true;
-    
+
     const textAreaElement = document.getElementById('textArea') as HTMLInputElement
-    textAreaElement.value.toLocaleUpperCase()
-    if(textAreaElement.value){
+    if (textAreaElement.value) {
       this.dataService.postSentence(textAreaElement.value).subscribe(res => {
-        this.exclamations = res;
+        if (res) {
+          this.changeDetector.detectChanges()
+
+          const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
+          const canvas2 = document.getElementById('myCanvas2') as HTMLCanvasElement
+          var ctx = canvas2.getContext("2d")
+          if (ctx != null) {
+            ctx.strokeStyle = "#FFA500"
+            ctx.font = "50px Arial"
+            ctx.strokeText("Thank You", 10, 120)
+          }
+          const myConfetti = confetti.create(canvas, {
+            resize: true // will fit all screen sizes
+          });
+
+          myConfetti();
+        }
       })
     }
-    
-    this.changeDetector.detectChanges()
-
-    const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
-    const canvas2 = document.getElementById('myCanvas2') as HTMLCanvasElement
-    var ctx = canvas2.getContext("2d")
-    if (ctx != null) {
-      ctx.strokeStyle = "#FFA500"
-      ctx.font = "50px Arial"
-      ctx.strokeText("Thank You", 10, 120)
-    }
-    const myConfetti = confetti.create(canvas, {
-      resize: true // will fit all screen sizes
-    });
-
-    myConfetti();
   }
 
-  public resubmit(){
+  public resubmit() {
     this.clicked = false
   }
 }

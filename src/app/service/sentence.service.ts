@@ -16,18 +16,16 @@ export class SentenceMakerService {
   REST_API: string = 'http://localhost:8000/api';
   // Http Header
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-  // httpHeaders = httpHeaders.set("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Origin", "*");
-  //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   constructor(private httpClient: HttpClient) { }
-  
+
   postSentence(data: string): Observable<Sentence> {
     let API_URL = `${this.REST_API}/sentence`;
     return this.httpClient
-      .post(API_URL, data)
+      .post(API_URL, { text: data })
       .pipe(catchError(this.handleError));
   }
-  
+
   getNouns() {
     return this.httpClient.get(`${this.REST_API}/nouns`);
   }
