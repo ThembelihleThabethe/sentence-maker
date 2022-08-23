@@ -10,7 +10,7 @@ After cloning this repo sentence-maker the frontend code is found in the Fronten
 
 ### Frontend setup
 
-Make sure you on the Frontend-Backend folder on your terminal `cd Frontend-Backend`
+Make sure you on the Frontend-Backend folder on your terminal
 
 ```bash
 npm install

@@ -12,6 +12,15 @@ npm-debug.log
 yarn-error.log
 
 
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
@@ -21,6 +30,6 @@ yarn-error.log
 testem.log
 /typings
 
-# # System files
+# System files
 .DS_Store
 Thumbs.db
